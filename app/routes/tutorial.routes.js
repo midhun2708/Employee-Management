@@ -3,7 +3,7 @@ const express = require("express")
 
 var router = express.Router();
 
-// Create a new Tutorial
+// Create a new Tutorial example
 router.post("/", tutorials.create);
 
 // Retrieve all Tutorials
@@ -25,3 +25,4 @@ router.delete("/:id", tutorials.delete);
 router.delete("/", tutorials.deleteAll);
 
 module.exports=router
+
