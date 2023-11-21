@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employ Management</title>
+    <link rel="stylesheet" href="table.css">
+    <script src="table.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+ 
+    <h2>Emp Data Management</h2> 
+
+    <button onclick="openModal()">Add Emp</button>
+  
+    <div id="myModal" class="modal">
+        <div id="formContainer">
+            
+            <label for="nameInput">
+                Name:
+            </label>
+            <input type="text" id="nameInput" placeholder="Enter your name">
+            <label for="emailInput">
+                Email Id:
+            </label>
+            <input type="email" id="emailInput" placeholder="Enter your email">
+            <label for="deptInput">
+                Dept:
+            </label>
+            <input type="text" id="deptInput" placeholder="Enter your DeptName">
+            <label for="branchInput">
+                branch:
+            </label>
+            <input type="text" id="branchInput" placeholder="Enter your branch">
+            <label for="DOB">
+                birthDate:
+            </label>
+            <input type="date" id="DOB" placeholder="Enter your BirthDate">
+            <button id="addUser">
+                Add
+            </button>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeModal()"></div>
+
+
+    <table id="outputTable"> 
+        <tr> 
+            <th>Name</th> 
+            <th>Email</th> 
+            <th>DeptName</th> 
+            <th>Branch</th>
+            <th>birthDate</th>  
+            <th>Action</th> 
+        </tr> 
+    </table> 
+</body>
+</html>
