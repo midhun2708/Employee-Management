@@ -99,6 +99,13 @@ async function addData(event) {
 }
 
 function deleteData(id) {
+    // Confirm with the user before deleting
+    let confirmed = window.confirm("Are you sure you want to delete this item?");
+
+    if (!confirmed) {
+        console.log('Deletion canceled.');
+        return; // Do nothing if the user cancels the deletion
+    }
     // Make an AJAX DELETE request
     $.ajax({
         url: `http://localhost:8080/api/tutorials/${id}`, // Assuming your delete endpoint accepts DELETE requests and includes the ID in the URL
