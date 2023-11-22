@@ -186,9 +186,63 @@ function deleteData(id) {
   }
 
   function editData(id) { 
+  // Get the parent row of the clicked button 
+  let row = event.target.closest('tr');
+
+  // Get the cells within the row 
+  let nameCell = row.cells[0];
+  let emailCell = row.cells[1];
+  let deptCell = row.cells[2];
+  let branchCell = row.cells[3];
+  let DOBCell = row.cells[4];
+
+  // Prompt the user to enter updated values 
+  let nameInput = prompt("Enter the updated name:", nameCell.innerHTML);
+  let emailInput = prompt("Enter the updated email:", emailCell.innerHTML);
+  let deptInput = prompt("Enter the updated dept:", deptCell.innerHTML);
+  let branchInput = prompt("Enter the updated branch:", branchCell.innerHTML);
+  let DOBInput = prompt("Enter the updated DOB:", DOBCell.innerHTML);
+
+  // Check if the user clicked Cancel in any prompt
+  if (nameInput === null || emailInput === null || deptInput === null || branchInput === null || DOBInput === null) {
+      return; // Do nothing if the user clicked Cancel
+  }
+
+  // Update the cell contents with the new values 
+  nameCell.innerHTML = nameInput;
+  emailCell.innerHTML = emailInput;
+  deptCell.innerHTML = deptInput;
+  branchCell.innerHTML = branchInput;
+  DOBCell.innerHTML = DOBInput;
+
+  var detail = {
+    "Name": nameInput,
+    "Email": emailInput,
+    "DeptName": deptInput,
+    "Branch": branchInput,
+    "DOB": DOBInput
+}
+  
+  // Make an AJAX PUT request to update the data on the server
+  $.ajax({
+    url: `http://localhost:8080/api/tutorials/${id}`,
+    type: "PUT",
+    contentType: "application/json",
+    data: JSON.stringify(detail),
+    success: function(response) {
+        // Handle the success response here
+        console.log(response);
+    },
+    error: function(error) {
+        // Handle the error here
+        console.error(error);
+    }
+});
+
   // Add your logic for handling the "Edit" button click
   console.log('Edit button clicked for ID:', id);
 }
+
 function clearInputs() {
 
     // Clear input fields 
