@@ -125,6 +125,18 @@ function deleteData(id) {
     console.log('Delete button clicked for ID:', id);
   }
 
+  function openEditModal() {
+    // Show the overlay and edit modal
+    document.getElementById('editOverlay').style.display = 'block';
+    document.getElementById('editModal').style.display = 'block';
+  }
+
+  function closeEditModal() {
+    // Hide the overlay and edit modal
+    document.getElementById('editOverlay').style.display = 'none';
+    document.getElementById('editModal').style.display = 'none';
+  }
+
   function editData(id) { 
     // Fetch data for the specific item using the id
    fetch(`http://localhost:8080/api/tutorials/${id}`)
