@@ -126,69 +126,62 @@ function deleteData(id) {
   }
 
   function editData(id) { 
-  // Get the parent row of the clicked button 
-  let row = event.target.closest('tr');
-
-  // Get the cells within the row 
-  let nameCell = row.cells[0];
-  let emailCell = row.cells[1];
-  let deptCell = row.cells[2];
-  let branchCell = row.cells[3];
-  let DOBCell = row.cells[4];
-
-  // Prompt the user to enter updated values 
-  let nameInput = prompt("Enter the updated name:", nameCell.innerHTML);
-  let emailInput = prompt("Enter the updated email:", emailCell.innerHTML);
-  let deptInput = prompt("Enter the updated dept:", deptCell.innerHTML);
-  let branchInput = prompt("Enter the updated branch:", branchCell.innerHTML);
-  let DOBInput = prompt("Enter the updated DOB:", DOBCell.innerHTML);
-
-  // Check if the user clicked Cancel in any prompt
-  if (nameInput === null || emailInput === null || deptInput === null || branchInput === null || DOBInput === null) {
-      return; // Do nothing if the user clicked Cancel
-  }
-
-  // Update the cell contents with the new values 
-  nameCell.innerHTML = nameInput;
-  emailCell.innerHTML = emailInput;
-  deptCell.innerHTML = deptInput;
-  branchCell.innerHTML = branchInput;
-  DOBCell.innerHTML = DOBInput;
-
-  var detail = {
-    "Name": nameInput,
-    "Email": emailInput,
-    "DeptName": deptInput,
-    "Branch": branchInput,
-    "DOB": DOBInput
-}
-  
-  // Make an AJAX PUT request to update the data on the server
-  $.ajax({
-    url: `http://localhost:8080/api/tutorials/${id}`,
-    type: "PUT",
-    contentType: "application/json",
-    data: JSON.stringify(detail),
-    success: function(response) {
-        // Handle the success response here
-        console.log(response);
-    },
-    error: function(error) {
-        // Handle the error here
-        console.error(error);
-    }
-});
-
-  // Add your logic for handling the "Edit" button click
-  console.log('Edit button clicked for ID:', id);
-}
-
-function clearInputs() {
-
-    // Clear input fields 
-    document.getElementById("nameInput").value = "";
-    document.getElementById("emailInput").value = "";
-    document.getElementById("deptInput").value = "";
-    document.getElementById("branchInput").value = "";
-    document.getElementById("DOB").value = "";
-}   
+    // Fetch data for the specific item using the id
+   fetch(`http://localhost:8080/api/tutorials/${id}`)
+     .then(response => response.json())
+     .then(data => {
+       // Populate the edit modal with the fetched data
+       document.getElementById('editNameInput').value = data.Name;
+       document.getElementById('editEmailInput').value = data.Email;
+       document.getElementById('editDeptInput').value = data.DeptName;
+       document.getElementById('editBranchInput').value = data.Branch;
+       document.getElementById('editDOB').value = data.DOB;
+       
+       // Add a new click event listener on the "Save Changes" button
+       document.getElementById('saveChanges').addEventListener('click', () => updateData(id));
+ 
+       // Open the edit modal
+       openEditModal();
+     })
+     .catch(error => console.error('Error fetching data:', error));
+   console.log('Edit button clicked for ID:', id);
+   } 
+   
+   function updateData(id) {
+     // Get the updated values from the edit modal
+     const updatedData = {
+       Name: document.getElementById('editNameInput').value,
+       Email: document.getElementById('editEmailInput').value,
+       DeptName: document.getElementById('editDeptInput').value,
+       Branch: document.getElementById('editBranchInput').value,
+       DOB: document.getElementById('editDOB').value
+     };
+   
+     // Make a PUT request to update the data
+     fetch(`http://localhost:8080/api/tutorials/${id}`, {
+       method: 'PUT',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(updatedData)
+     })
+       .then(response => response.json())
+       .then(data => {
+         console.log('Updated data:', data);
+ 
+         // You can optionally close the edit modal here
+         closeEditModal();
+         // Reload the data to refresh the table
+         fetchData();
+       })
+       .catch(error => console.error('Error updating data:', error));
+   }
+ function clearInputs() {
+ 
+     // Clear input fields 
+     document.getElementById("nameInput").value = "";
+     document.getElementById("emailInput").value = "";
+     document.getElementById("deptInput").value = "";
+     document.getElementById("branchInput").value = "";
+     document.getElementById("DOB").value = "";
+ }   

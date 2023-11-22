@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employ Management</title>
+    <title>Employee Management</title>
     <link rel="stylesheet" href="table.css">
     <script src="table.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -56,5 +56,27 @@
             <th>Action</th> 
         </tr> 
     </table> 
+
+     <!-- Update Modal -->
+  <div id="editModal" class="modal">
+    <div id="editFormContainer">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <label for="editNameInput">Name:</label>
+      <input type="text" id="editNameInput" placeholder="Enter your name">
+      <label for="editEmailInput">Email Id:</label>
+      <input type="email" id="editEmailInput" placeholder="Enter your email">
+      <label for="editDeptInput">Dept:</label>
+      <input type="text" id="editDeptInput" placeholder="Enter your DeptName">
+      <label for="editBranchInput">Branch:</label>
+      <input type="text" id="editBranchInput" placeholder="Enter your branch">
+      <label for="editDOB">Birth Date:</label>
+      <input type="date" id="editDOB" placeholder="Enter your BirthDate">
+      <button id="saveChanges">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- Overlay for the Edit Modal -->
+  <div id="editOverlay" class="overlay" onclick="closeEditModal()"></div>
+  
 </body>
 </html>
