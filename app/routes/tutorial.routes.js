@@ -9,6 +9,7 @@ router.post("/", tutorials.create);
 // Retrieve all Tutorials
 router.get("/", tutorials.findAll);
 
+
 // Retrieve all published Tutorials
 router.get("/published", tutorials.findAllPublished);
 
